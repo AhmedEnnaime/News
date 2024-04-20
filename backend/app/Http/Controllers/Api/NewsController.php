@@ -8,7 +8,6 @@ use App\Http\Requests\UpdateNewsRequest;
 use App\Http\Resources\NewsCollection;
 use App\Http\Resources\NewsResource;
 use App\Models\News;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class NewsController extends BaseController
