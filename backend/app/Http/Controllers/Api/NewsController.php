@@ -7,6 +7,7 @@ use App\Http\Requests\StoreNewsRequest;
 use App\Http\Requests\UpdateNewsRequest;
 use App\Http\Resources\NewsCollection;
 use App\Http\Resources\NewsResource;
+use App\Models\Category;
 use App\Models\News;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -65,4 +66,25 @@ class NewsController extends BaseController
                     ->get();
         return $this->sendResponse(new NewsCollection($news), "News retrieved successfully by category name", 200);
     }
+
+    public function findByCategoryAndSubcategories($categoryName)
+    {
+        $category = Category::where('name', $categoryName)->first();
+
+        if (!$category) {
+            return $this->sendError("Category not found", [], 404);
+        }
+
+        $categoryIds = $category->children()->pluck('id')->push($category->id)->toArray();
+
+        $today = Carbon::now()->toDateString();
+        $news = News::with("category")
+            ->whereIn('category_id', $categoryIds)
+            ->where('expiration_date', '>=', $today)
+            ->orderBy('debut_date', 'asc')
+            ->get();
+
+        return $this->sendResponse(new NewsCollection($news), "News retrieved successfully by category and its subcategories", 200);
+    }
+
 }

@@ -16,12 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource("news", NewsController::class)->middleware('auth:sanctum');
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource("news", NewsController::class);
+    Route::get("orderedNews", [NewsController::class, "findNewsByPubOrder"]);
+    Route::get("news/category/{categoryName}", [NewsController::class, "findByCategoryName"]);
+    Route::get("news/category/{categoryName}/subcategories", [NewsController::class, "findByCategoryAndSubcategories"]);
+    Route::post('logout',[AuthController::class,'logout']);
+});
 Route::post('register',[AuthController::class,'register']);
 Route::post('login',[AuthController::class,'login']);
-Route::post('logout',[AuthController::class,'logout'])
-  ->middleware('auth:sanctum');
 
-  Route::get("pub", [NewsController::class, "findNewsByPubOrder"]);
-Route::get("news/category/{categoryName}", [NewsController::class, "findByCategoryName"]);
+
 
