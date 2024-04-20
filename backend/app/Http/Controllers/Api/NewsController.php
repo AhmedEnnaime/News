@@ -19,26 +19,17 @@ class NewsController extends BaseController
     }
 
     public function store(StoreNewsRequest $request) {
-        $validated = $request->validated();
-        $news = News::create($validated);
+        $data = $request->validated();
+        $news = News::create($data);
         return $this->sendResponse(new NewsResource($news), "News created successfully", 201);
     }
 
     public function show(Request $request, News $news) {
-        die("here");
-        try {
         if (is_null($news)) {
-            die("here");
             return $this->sendError("News not found");
         }
-        die("here");
-
         $news->load('category');
         return $this->sendResponse(new NewsResource($news), "News retrieved successfully", 200);
-    } catch (ModelNotFoundException $e) {
-        die("here");
-        return $this->sendError("News not found");
-    }
     }
 
     public function update(UpdateNewsRequest $request, News $news) {
