@@ -21,3 +21,7 @@ Route::post('register',[AuthController::class,'register']);
 Route::post('login',[AuthController::class,'login']);
 Route::post('logout',[AuthController::class,'logout'])
   ->middleware('auth:sanctum');
+
+  Route::get("pub", [NewsController::class, "findNewsByPubOrder"]);
+Route::get("news/category/{categoryName}", [NewsController::class, "findByCategoryName"]);
+
