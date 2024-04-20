@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string("title");
             $table->string("content");
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')
+                  ->onDelete('cascade');
             $table->string("debut_date");
             $table->string("expiration_date");
             $table->timestamps();
