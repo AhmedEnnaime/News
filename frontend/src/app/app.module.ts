@@ -9,6 +9,8 @@ import { HeaderComponent } from './shared/header/header.component';
 import { NewsComponent } from './components/news/news.component';
 import { NewsCardComponent } from './components/news/news-card/news-card.component';
 import { ButtonComponent } from './shared/button/button.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { ButtonComponent } from './shared/button/button.component';
     HeaderComponent,
     NewsComponent,
     NewsCardComponent,
-    ButtonComponent
+    ButtonComponent,
+    LoginPageComponent,
+    RegisterPageComponent
   ],
   imports: [
     BrowserModule,
