@@ -75,7 +75,7 @@ class NewsController extends BaseController
             return $this->sendError("Category not found", [], 404);
         }
 
-        $categoryIds = $category->children()->pluck('id')->push($category->id)->toArray();
+        $categoryIds = $this->getIdsOfCategoryAndSubcategories($category);
 
         $today = Carbon::now()->toDateString();
         $news = News::with("category")
@@ -85,6 +85,17 @@ class NewsController extends BaseController
             ->get();
 
         return $this->sendResponse(new NewsCollection($news), "News retrieved successfully by category and its subcategories", 200);
+    }
+
+    private function getIdsOfCategoryAndSubcategories($category)
+    {
+        $categoryIds = [$category->id];
+
+        foreach ($category->children as $child) {
+            $categoryIds = array_merge($categoryIds, $this->getIdsOfCategoryAndSubcategories($child));
+        }
+
+        return $categoryIds;
     }
 
 }
