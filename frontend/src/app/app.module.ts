@@ -15,11 +15,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { AuthorizationInterceptor } from './authorization.interceptor';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { NewsEffect } from './store/news/news.effect';
 import { NewsStateModule } from './store/news/news.state.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { NewsModalComponent } from './components/news-modal/news-modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -32,11 +40,19 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     ButtonComponent,
     LoginPageComponent,
     RegisterPageComponent,
+    NewsModalComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRadioModule,
+    MatIconModule,
     FormsModule,
     HttpClientModule,
     StoreModule,
@@ -44,6 +60,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([NewsEffect]),
     NewsStateModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     DatePipe,
