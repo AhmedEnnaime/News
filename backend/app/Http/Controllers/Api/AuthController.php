@@ -19,10 +19,7 @@ class AuthController extends BaseController
             'email' => $registerUserData['email'],
             'password' => Hash::make($registerUserData['password']),
         ]);
-        return response()->json([
-            'message' => 'User Created ',
-            'data' => $user
-        ]);
+        return $this->sendResponse($user, "User registered successfully", 201);
     }
 
     public function login(Request $request){
@@ -32,14 +29,11 @@ class AuthController extends BaseController
         ]);
         $user = User::where('email',$loginUserData['email'])->first();
         if(!$user || !Hash::check($loginUserData['password'],$user->password)){
-            return response()->json([
-                'message' => 'Invalid Credentials'
-            ],401);
+            return $this->sendError('Invalid credentials.', ['error' => 'Email or password invalid'], 401);
         }
         $token = $user->createToken($user->name.'-AuthToken')->plainTextToken;
-        return response()->json([
-            'access_token' => $token,
-        ]);
+        $success["access_token"] = $token;
+        return $this->sendResponse($success, "User logged in successfully", 200);
     }
 
     public function logout(){
