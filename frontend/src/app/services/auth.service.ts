@@ -44,4 +44,8 @@ export class AuthService {
       })
     );
   }
+
+  getToken() {
+    return this.cookieService.get('access_token');
+  }
 }
