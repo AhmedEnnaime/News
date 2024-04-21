@@ -5,9 +5,6 @@
     </div>
 
     <div class="grid lg:grid-cols-2 sm:grid-cols-1 gap-2 justify-center items-center">
-        <!-- <app-subject-card *ngFor="let subject of subjects | async" [subject]="subject"
-            class="w-full"></app-subject-card> -->
-        <app-news-card class="w-full"></app-news-card>
-
+        <app-news-card *ngFor="let singleNews of news | async" [singleNews]="singleNews" class="w-full"></app-news-card>
     </div>
 </div>

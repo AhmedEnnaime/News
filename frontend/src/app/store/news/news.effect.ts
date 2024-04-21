@@ -3,7 +3,9 @@ import { NewsService } from 'src/app/services/news.service';
 import * as newsPageActions from './actions/news-page.actions';
 import * as newsApiActions from './actions/news.api.actions';
 import { exhaustMap, map } from 'rxjs';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class NewsEffect {
   constructor(private actions$: Actions, private newsService: NewsService) {}
 
