@@ -37,9 +37,14 @@ export class NewsService {
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 
-  deleteNews(id: number | undefined): Observable<string> {
+  deleteNews(
+    id: number | undefined
+  ): Observable<{ message: String; deletedElementIdentifier: number }> {
     return this.http
-      .delete<string>(`${this.baseUrl}/news/${id}`, this.httpOptions)
+      .delete<{ message: String; deletedElementIdentifier: number }>(
+        `${this.baseUrl}/news/${id}`,
+        this.httpOptions
+      )
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 }

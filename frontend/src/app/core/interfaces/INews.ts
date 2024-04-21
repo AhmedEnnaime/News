@@ -1,6 +1,7 @@
 import ICategory from './ICategory';
 
 interface INews {
+  id?: number;
   title: string;
   content: string;
   category_id?: number;
