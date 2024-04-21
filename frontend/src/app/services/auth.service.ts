@@ -1,10 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConfigService } from '../config/config.service';
-import { Observable, catchError } from 'rxjs';
+import { Observable, catchError, tap } from 'rxjs';
 import IAuthReq from '../core/interfaces/IAuthReq';
 import IUser from '../core/interfaces/IUser';
 import IAuthRes from '../core/interfaces/IAuthRes';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,11 @@ export class AuthService {
     }),
   };
 
-  constructor(private http: HttpClient, private configService: ConfigService) {}
+  constructor(
+    private http: HttpClient,
+    private configService: ConfigService,
+    private cookieService: CookieService
+  ) {}
 
   register(user: IUser): Observable<IAuthReq> {
     return this.http
@@ -28,8 +33,15 @@ export class AuthService {
   }
 
   login(credentials: IAuthReq): Observable<IAuthRes> {
-    return this.http
-      .post<IAuthRes>(`${this.baseUrl}/login`, credentials, this.httpOptions)
-      .pipe(catchError((err) => this.configService.handleError(err)));
+    return this.http.post<IAuthRes>(`${this.baseUrl}/login`, credentials).pipe(
+      catchError((err) => {
+        throw err;
+      }),
+      tap((res) => {
+        if (res.access_token) {
+          this.cookieService.set('access_token', res.access_token);
+        }
+      })
+    );
   }
 }

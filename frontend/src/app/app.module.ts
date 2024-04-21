@@ -11,6 +11,8 @@ import { NewsCardComponent } from './components/news/news-card/news-card.compone
 import { ButtonComponent } from './shared/button/button.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,13 +24,16 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
     NewsCardComponent,
     ButtonComponent,
     LoginPageComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
