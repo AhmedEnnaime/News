@@ -4,6 +4,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import INews from 'src/app/core/interfaces/INews';
 import * as newsPageActions from '../../store/news/actions/news-page.actions';
+import ICategory from 'src/app/core/interfaces/ICategory';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-news-modal',
@@ -11,9 +13,12 @@ import * as newsPageActions from '../../store/news/actions/news-page.actions';
   styleUrls: ['./news-modal.component.css'],
 })
 export class NewsModalComponent implements OnInit {
+  categories: ICategory[] = [];
+
   constructor(
     private dialogRef: MatDialogRef<NewsModalComponent>,
     private store: Store,
+    private categoryService: CategoryService,
     @Inject(MAT_DIALOG_DATA) public data: { news: INews }
   ) {}
 
@@ -26,6 +31,9 @@ export class NewsModalComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.categoryService.getCategories().subscribe((categories) => {
+      this.categories = categories;
+    });
     if (this.data.news !== undefined) {
       this.form.patchValue({
         title: this.data.news.title ?? '',

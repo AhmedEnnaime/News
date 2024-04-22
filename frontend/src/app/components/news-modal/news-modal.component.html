@@ -13,6 +13,12 @@
             <input matInput placeholder="content" formControlName="content">
         </mat-form-field>
         <mat-form-field class="w-full">
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="category_id">
+                <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="w-full">
             <mat-label>Debut date</mat-label>
             <input matInput formControlName="debut_date" type="date">
         </mat-form-field>

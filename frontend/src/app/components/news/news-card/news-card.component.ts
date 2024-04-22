@@ -27,7 +27,7 @@ export class NewsCardComponent {
       enterAnimationDuration: '400ms',
       exitAnimationDuration: '400ms',
       autoFocus: false,
-      data: { level: this.singleNews },
+      data: { news: this.singleNews },
     });
   }
 }
