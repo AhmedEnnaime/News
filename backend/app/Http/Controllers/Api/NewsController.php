@@ -44,8 +44,9 @@ class NewsController extends BaseController
         return $this->sendResponse([
             "message" => "News deleted successfully",
             "deletedElementIdentifier" => $news->id
-        ], "News deleted successfully", 204);
+        ], "News deleted successfully", 200);
     }
+
 
     public function findNewsByPubOrder()
     {

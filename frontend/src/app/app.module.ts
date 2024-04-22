@@ -28,6 +28,7 @@ import { NewsStateModule } from './store/news/news.state.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NewsModalComponent } from './components/news-modal/news-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginPageComponent,
     RegisterPageComponent,
     NewsModalComponent,
+    DeleteModalComponent,
   ],
   imports: [
     BrowserModule,
